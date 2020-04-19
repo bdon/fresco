@@ -5,6 +5,13 @@ const getDomain = (url)=>{
 	return domain || null
 }
 
+const getName = (url)=>{
+	// find meat
+	const str = url.replace(/(http|https)([.:///]+)/,'').split('/')[0]
+	return str
+}
+
 module.exports = {
-	getDomain
+	getDomain,
+	getName
 }
