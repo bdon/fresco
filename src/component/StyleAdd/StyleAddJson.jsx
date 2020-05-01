@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {withRouter} from 'react-router-dom'
+import {Map} from 'immutable'
 
 import modelApp from '../../model/app'
 import modelStyle from '../../model/style'
@@ -13,7 +14,7 @@ class StyleAddJson extends React.Component {
 		super(props)
 
 		this.state = {
-			json: {},
+			json: Map({}),
 		}
 	}
 
@@ -28,7 +29,7 @@ class StyleAddJson extends React.Component {
 			await modelApp.actions.setLoading(true) 
 
 			const style = await modelStyle.actions.addFromJson({
-				json,
+				json: json.toJS(),
 			})
 			await modelApp.actions.setLoading(false)
 

@@ -9,6 +9,7 @@ import Nav from './Nav'
 import Route from './Route'
 
 import modelApp from '../../model/app'
+import modelLegacy from '../../model/legacy'
 import modelPreference from '../../model/preference'
 import modelSource from '../../model/source'
 import modelStyle from '../../model/style'
@@ -18,9 +19,14 @@ class Page extends React.Component {
 	async componentDidMount(){
 		try{
 			await modelApp.actions.setLoading(true)
+
 			await modelPreference.actions.init()
 			await modelStyle.actions.init()
 			await modelSource.actions.init()
+
+			// check for old styles in localstorage
+			await modelLegacy.actions.importStyles()
+
 			await modelApp.actions.setLoading(false)
 		} catch(e){
 			await modelApp.actions.setLoading(false)

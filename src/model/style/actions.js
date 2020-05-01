@@ -66,6 +66,8 @@ const addFromJson = async ({json})=>{
 	//TODO check if ID is unique
 	style.id = json.id || utilUid.make()
 	style.version = json.version || constants.defaultMapboxVersion
+	style.layers = style.layers || []
+	style.sources = style.sources || {}
 
 	const styleImm = fromJS(style)
 	const stylePath = [style.id, 'current']
@@ -370,6 +372,7 @@ const updateUpload = async ({file, style})=>{
 }
 
 actions.subscribe('style',{
+	addFromJson,
 	changeKeyIn,
 	listAdd,
 	listConcat,
